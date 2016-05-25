@@ -130,9 +130,9 @@ $(document).ready(function(){
 			$('#right').css({'height': inHeight + "px"});
 		};
 
-		if(height > inHeight){
-			pbackground();
-		}
+		// if(height > inHeight){
+		// 	pbackground();
+		// }
 	};
 
 	var clear = function(){
@@ -180,6 +180,7 @@ $(document).ready(function(){
 		if(window.innerWidth > 719){
 			$('#right').css({'height' : lHeight + hHeight + 20 +"px"});
 		}
+		
 
 	};
 
@@ -238,18 +239,18 @@ $(document).ready(function(){
 	// Create cross browser requestAnimationFrame method:
 	
 
-	window.requestAnimationFrame = window.requestAnimationFrame
+	// window.requestAnimationFrame = window.requestAnimationFrame
 
-	var back = document.getElementById('image').children;
-	console.log(back);
-	var scrolltop = window.pageYOffset
-	function pbackground(){
-		back[0].style.top = scrolltop * .2 + 'px'
-	}
+	// var back = document.getElementById('image').children;
+	// console.log(back);
+	// var scrolltop = window.pageYOffset
+	// function pbackground(){
+	// 	back[0].style.top = scrolltop * .2 + 'px'
+	// }
 
-	window.addEventListener('scroll', function(){
-		requestAnimationFrame(pbackground)
-	}, false)
+	// window.addEventListener('scroll', function(){
+	// 	requestAnimationFrame(pbackground)
+	// }, false)
 
 
 });
