@@ -18,9 +18,11 @@ $(document).ready(function(){
 			success: function(response){
 				update(response)
 				var id = response.artists.items[0].id;
+				var name = response.artists.items[0].name;
 				get_albums(id)
 				get_tracks(id)
 				get_related(id)
+				get_itunes(name)
 			}
 		});
 
@@ -54,6 +56,23 @@ $(document).ready(function(){
 				}
 			});
 		};
+
+		
+
+
+		// var get_itunes = function(x){
+		// 	var replaced = x.split(' ').join('+');
+		// 	// var newReq = new XMLHttpRequest();
+		// 	// newReq.open('Get', "http://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"");
+		// 	// newReq.send();
+		// 	$.ajax({
+		// 		type: 'GET',
+		// 		url: "http://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"",
+		// 		success: function(response){
+		// 			console.log(response)
+		// 		}
+		// 	});
+		// }
 	};
 
 	var update = function(x){
