@@ -177,13 +177,14 @@ $(document).ready(function(){
 
 		$('.follower_text').on('click', function(){
 			search($(this).text());
-		});;
+		});
 
 		resize();
 	};
 
 	var gen_albums = function(x){
 		clear_albums();
+		$('#albums').append("<h1 id='albumT'>Albums</h1>");
 		var albums = x.items;
 		var inHeight = document.documentElement.clientHeight
 		if(window.innerWidth > 719){
@@ -223,12 +224,11 @@ $(document).ready(function(){
 			var lHeight = $('#left').height();
 			var rHeight = $('#right').height();
 			var nHeight = $('#name').height();
-			console.log(imgHeight);
-			$('#left').css({'margin-top' : imgHeight + nHeight + "px"});
-
+			$('#left').css({'margin-top' : imgHeight + nHeight+ "px"});
 			$('#name').css({'top' : imgHeight + 98 + "px"});
 			$('#right').css({'height' : "100%"})
 		}
+
 		if(window.innerWidth > 719){
 			$('#right').css({'height' : window.innerHeight + "px"})
 		}
