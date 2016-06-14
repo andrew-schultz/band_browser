@@ -22,7 +22,6 @@ $(document).ready(function(){
 				get_albums(id)
 				get_tracks(id)
 				get_related(id)
-				// get_itunes(name)
 			}
 		});
 
@@ -57,104 +56,6 @@ $(document).ready(function(){
 				}
 			});
 		};
-
-		// var get_album_tracks = function(x){
-		// 	$.ajax({
-		// 		type: "GET",
-		// 		url: ""
-		// 	})
-		// }
-
-
-		// // Create the XHR object.
-		// function createCORSRequest(method, url) {
-		//   var xhr = new XMLHttpRequest();
-		//   if ("withCredentials" in xhr) {
-		//     // XHR for Chrome/Firefox/Opera/Safari.
-		//     // Check if the XMLHttpRequest object has a "withCredentials" property.
-		//     // "withCredentials" only exists on XMLHTTPRequest2 objects.
-		//     xhr.open(method, url, true);
-		//   } else if (typeof XDomainRequest != "undefined") {
-		//     // XDomainRequest for IE.
-		//     // Otherwise, check if XDomainRequest.
-		// 	// XDomainRequest only exists in IE, and is IE's way of making CORS requests.
-		//     xhr = new XDomainRequest();
-		//     xhr.open(method, url);
-		//   } else {
-		//     // CORS not supported.
-		//     // Otherwise, CORS is not supported by the browser.
-		//     xhr = null;
-		//   }
-		//   return xhr;
-		// }
-
-		// function get_itunes(x) {
-		// 	var replaced = x.split(' ').join('+');
-		// 	var r = replaced.toLowerCase();
-		// 	var url = "http://www.itunes.apple.com/search?term="+r + "callback=?";
-
-		//   var xhr = createCORSRequest('GET', url);
-		//   if (!xhr) {
-		//     alert('CORS not supported');
-		//     return;
-		//   }
-
-		//   // Response handlers.
-		//   xhr.onload = function() {
-		//     var text = xhr.responseText;
-		    
-		// 	console.log(text)
-		//   };
-
-		//   xhr.onerror = function() {
-		//     alert('Woops, there was an error making the request.');
-		//   };
-
-		//   xhr.send();
-		// }
-
-
-
-
-
-
-
-
-		// var get_itunes = function(x){
-		// 	var replaced = x.split(' ').join('+');
-		// 	var r = replaced.toLowerCase();
-		// 	console.log(r);
-		// 	// var newReq = new XMLHttpRequest();
-		// 	// newReq.open('Get', "http://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"&callback=?");
-		// 	// newReq.send();
-
-		// 	$.ajax({
-		// 		type: 'GET',
-		// 		url: "https://itunes.apple.com/search",
-		// 		data: {
-		// 			term: r
-
-		// 		},
-		// 		// crossDomain: true,
-		// 		// contentType: 'jsonp',
-		// 		// xhrFields: {
-		// 		// 	withCredentials: false
-		// 		// },
-		// 		// headers: {
-					
-		// 		// },
-		// 		// beforeSend: function(xhr){
-		// 		// 	xhr.setRequestHeader('Access-Control-Allow-Origin', 'false');
-		// 		// },
-		// 		success: function(response){
-		// 			console.log(response)
-		// 		},
-		// 		// error: function(){
-		// 		// 	console.log("error");
-		// 		// }
-		// 	});
-		// }
-		
 	};
 
 	var update = function(x){
@@ -191,21 +92,6 @@ $(document).ready(function(){
 		};
 
 		generate(artist, i);
-		
-
-		// $('#image').on('click', function(){
-		// 	if(i < images.length-1){
-		// 		i+=1;
-		// 	} else {
-		// 		i=0;
-		// 	};
-		// 	generate(artist, i)
-
-		// 	if(height > 700){
-		// 		i += 1
-		// 		generate(artist, i)
-		// 	}
-		// });
 	};
 
 	var generate = function(x, y){
