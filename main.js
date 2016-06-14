@@ -22,7 +22,7 @@ $(document).ready(function(){
 				get_albums(id)
 				get_tracks(id)
 				get_related(id)
-				get_itunes(name)
+				// get_itunes(name)
 			}
 		});
 
@@ -57,6 +57,13 @@ $(document).ready(function(){
 				}
 			});
 		};
+
+		// var get_album_tracks = function(x){
+		// 	$.ajax({
+		// 		type: "GET",
+		// 		url: ""
+		// 	})
+		// }
 
 
 		// // Create the XHR object.
@@ -113,40 +120,40 @@ $(document).ready(function(){
 
 
 
-		var get_itunes = function(x){
-			var replaced = x.split(' ').join('+');
-			var r = replaced.toLowerCase();
-			console.log(r);
-			// var newReq = new XMLHttpRequest();
-			// newReq.open('Get', "http://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"&callback=?");
-			// newReq.send();
+		// var get_itunes = function(x){
+		// 	var replaced = x.split(' ').join('+');
+		// 	var r = replaced.toLowerCase();
+		// 	console.log(r);
+		// 	// var newReq = new XMLHttpRequest();
+		// 	// newReq.open('Get', "http://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"&callback=?");
+		// 	// newReq.send();
 
-			$.ajax({
-				type: 'GET',
-				url: "https://itunes.apple.com/search",
-				data: {
-					term: r
+		// 	$.ajax({
+		// 		type: 'GET',
+		// 		url: "https://itunes.apple.com/search",
+		// 		data: {
+		// 			term: r
 
-				},
-				// crossDomain: true,
-				// contentType: 'jsonp',
-				// xhrFields: {
-				// 	withCredentials: false
-				// },
-				// headers: {
+		// 		},
+		// 		// crossDomain: true,
+		// 		// contentType: 'jsonp',
+		// 		// xhrFields: {
+		// 		// 	withCredentials: false
+		// 		// },
+		// 		// headers: {
 					
-				// },
-				// beforeSend: function(xhr){
-				// 	xhr.setRequestHeader('Access-Control-Allow-Origin', 'false');
-				// },
-				success: function(response){
-					console.log(response)
-				},
-				// error: function(){
-				// 	console.log("error");
-				// }
-			});
-		}
+		// 		// },
+		// 		// beforeSend: function(xhr){
+		// 		// 	xhr.setRequestHeader('Access-Control-Allow-Origin', 'false');
+		// 		// },
+		// 		success: function(response){
+		// 			console.log(response)
+		// 		},
+		// 		// error: function(){
+		// 		// 	console.log("error");
+		// 		// }
+		// 	});
+		// }
 		
 	};
 
@@ -258,16 +265,23 @@ $(document).ready(function(){
 	var gen_albums = function(x){
 		clear_albums();
 		$('#albums').append("<h1 id='albumT'>Albums</h1>");
+		console.log(x);
 		var albums = x.items;
 		var inHeight = document.documentElement.clientHeight
 		if(window.innerWidth > 719){
 			$('#albums').css({'margin-top' : inHeight + "px"})
 		}
 		for(var a = 0; a < albums.length; a++){
-			if((a > 0) && (albums[a].name != albums[a-1].name)){
-				$('#albums').append("<div class='album'><img class='album_art' src='" + albums[a].images[1].url + "'></img><p class='album_title'>"+ albums[a].name +"</p></div>");
+			if((a == 0) || (albums[a].name != albums[a-1].name)){
+				$('#albums').append("<div class='album' value=" + albums[a].id + "><img class='album_art' src='" + albums[a].images[1].url + "'></img><p class='album_title'>"+ albums[a].name +"</p></div><div class='album_id'>"+albums[a].id+"</div>");
 			};
 		};
+
+		$('.album').on('click', function(){
+			uri = $(this).data("uri");
+			id = $(this).find('.album_id').innerHTML();
+			console.log(id);
+		});
 	};
 
 	var gen_tracks = function(x){
