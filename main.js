@@ -22,7 +22,6 @@ $(document).ready(function(){
 				get_albums(id)
 				get_tracks(id)
 				get_related(id)
-				// get_itunes(name)
 			}
 		});
 
@@ -41,6 +40,7 @@ $(document).ready(function(){
 				type: "GET",
 				url: "https://api.spotify.com/v1/artists/"+x+"/albums",
 				success: function(response){
+					console.log(response);
 					gen_albums(response);
 				}
 			});
@@ -56,25 +56,6 @@ $(document).ready(function(){
 				}
 			});
 		};
-
-		
-
-
-		// var get_itunes = function(x){
-		// 	var replaced = x.split(' ').join('+');
-		// 	console.log(replaced.toLowerCase())
-		// 	// var newReq = new XMLHttpRequest();
-		// 	// newReq.open('Get', "http://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"");
-		// 	// newReq.send();
-		// 	$.ajax({
-		// 		type: 'GET',
-		// 		url: "https://www.itunes.apple.com/search?term="+replaced.toLowerCase()+"&callback={?}",
-		// 		success: function(response){
-		// 			console.log(response)
-		// 		}
-		// 	});
-		// }
-		
 	};
 
 	var update = function(x){
@@ -111,21 +92,6 @@ $(document).ready(function(){
 		};
 
 		generate(artist, i);
-		
-
-		// $('#image').on('click', function(){
-		// 	if(i < images.length-1){
-		// 		i+=1;
-		// 	} else {
-		// 		i=0;
-		// 	};
-		// 	generate(artist, i)
-
-		// 	if(height > 700){
-		// 		i += 1
-		// 		generate(artist, i)
-		// 	}
-		// });
 	};
 
 	var generate = function(x, y){
@@ -140,6 +106,29 @@ $(document).ready(function(){
 			$('#right').css({'height': inHeight + "px"});
 		};
 	};
+
+	var inHeight = window.innerHeight;
+
+	var resize = function(){
+		if(window.innerWidth < 719){
+			console.log('hello');
+			var imgHeight = $('#pic').height();
+			var lHeight = $('#left').height();
+			var rHeight = $('#right').height();
+			var nHeight = $('#name').height();
+			$('#left').css({'margin-top' : imgHeight + nHeight+ "px"});
+			$('#name').css({'top' : imgHeight + 98 + "px"});
+			$('#right').css({'height' : "100%"})
+		}
+
+		if(window.innerWidth > 719){
+			$('#right').css({'height' : window.innerHeight + "px"})
+		}
+	}
+
+	$(window).on('resize', function(){
+		resize()
+	});
 
 	var clear = function(){
 		$('#genres').empty();
@@ -177,23 +166,34 @@ $(document).ready(function(){
 
 		$('.follower_text').on('click', function(){
 			search($(this).text());
-		});;
+		});
 
 		resize();
 	};
 
 	var gen_albums = function(x){
 		clear_albums();
+		$('#albums').append("<h1 id='albumT'>Albums</h1>");
+		console.log(x);
 		var albums = x.items;
 		var inHeight = document.documentElement.clientHeight
 		if(window.innerWidth > 719){
 			$('#albums').css({'margin-top' : inHeight + "px"})
 		}
 		for(var a = 0; a < albums.length; a++){
-			if((a > 1) && (albums[a].name != albums[a-1].name)){
-				$('#albums').append("<div class='album'><img class='album_art' src='" + albums[a].images[1].url + "'></img><p class='album_title'>"+ albums[a].name +"</p></div>");
+			if((a == 0) || (albums[a].name != albums[a-1].name)){
+				$('#albums').append("<div class='album_container'><div class='album_container_inner'><div class='album' data-album=" + albums[a].id + "><img class='album_art' src='" + albums[a].images[1].url + "'></img><p class='album_title'>"+ albums[a].name +"</p></div><div class='album_id'>"+albums[a].id+"</div><div class='album_back'><iframe src='https://embed.spotify.com/?uri=spotify:album:"+ albums[a].id +"&theme=white' width='302' height='366' frameborder='0' allowtransparency='true'></iframe></div></div></div>");
 			};
 		};
+
+		$('.album_container').on('click', function(){
+			id = $(this).data("album");
+			show_album(id);
+			$(this).children('.album_container_inner').addClass('flip');
+		});
+		$('.album_container').on('mouseleave', function(){
+			$(this).children('.album_container_inner').removeClass('flip');
+		});
 	};
 
 	var gen_tracks = function(x){
@@ -210,8 +210,14 @@ $(document).ready(function(){
 			uri = $(this).data("track");
 			console.log(uri)
 			$('#npTitle').text("Now Playing");
-			$('#play').append("<iframe src='https://embed.spotify.com/?uri="+uri+"' width='250' height='80' frameborder='0' allowtransparency='true' autoplay='true'></iframe>")
+			$('#play').append("<iframe src='https://embed.spotify.com/?uri="+uri+"&theme=white' width='250' height='80' frameborder='0' allowtransparency='true' autoplay='true'></iframe>")
 		});
+	};
+
+	var show_album = function(x){
+		console.log(x);
+
+
 	};
 
 	var inHeight = window.innerHeight;
@@ -223,12 +229,11 @@ $(document).ready(function(){
 			var lHeight = $('#left').height();
 			var rHeight = $('#right').height();
 			var nHeight = $('#name').height();
-			console.log(imgHeight);
-			$('#left').css({'margin-top' : imgHeight + nHeight + "px"});
-
+			$('#left').css({'margin-top' : imgHeight + nHeight+ "px"});
 			$('#name').css({'top' : imgHeight + 98 + "px"});
 			$('#right').css({'height' : "100%"})
 		}
+
 		if(window.innerWidth > 719){
 			$('#right').css({'height' : window.innerHeight + "px"})
 		}
